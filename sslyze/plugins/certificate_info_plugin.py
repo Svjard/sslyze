@@ -197,9 +197,9 @@ class CertificateInfoScanResult(PluginScanResult):
     """The result of running a CertificateInfoScanCommand on a specific server.
 
     Attributes:
-        certificate_chain (List[cryptography.x509.Certificate]): The certificate chain sent by the server; index 0 is 
-            the leaf certificate. Each certificate is parsed using the cryptography module; documentation is available 
-            at https://cryptography.io/en/latest/x509/reference/#x-509-certificate-object. 
+        certificate_chain (List[cryptography.x509.Certificate]): The certificate chain sent by the server; index 0 is
+            the leaf certificate. Each certificate is parsed using the cryptography module; documentation is available
+            at https://cryptography.io/en/latest/x509/reference/#x-509-certificate-object.
         path_validation_result_list (List[PathValidationResult]): The list of attempts at validating the server's
             certificate chain path using the trust stores packaged with SSLyze (Mozilla, Apple, etc.).
         path_validation_error_list (List[PathValidationError]):  The list of attempts at validating the server's
@@ -213,8 +213,8 @@ class CertificateInfoScanResult(PluginScanResult):
         verified_certificate_chain (List[cryptography.x509.Certificate]): The verified certificate chain built using the
             successful_trust_store; index 0 is the leaf certificate and the last element is the anchor/CA certificate
             from the trust store. Will be empty if the validation failed with all available trust store, or the
-            verified chain could not be built. Each certificate is parsed using the cryptography module; documentation 
-            is available at https://cryptography.io/en/latest/x509/reference/#x-509-certificate-object. 
+            verified chain could not be built. Each certificate is parsed using the cryptography module; documentation
+            is available at https://cryptography.io/en/latest/x509/reference/#x-509-certificate-object.
         certificate_matches_hostname (bool): True if hostname validation was successful ie. the leaf certificate was
             issued for the server's hostname.
         is_leaf_certificate_ev (bool): True if the leaf certificate is Extended Validation according to Mozilla.
@@ -574,7 +574,7 @@ class CertificateInfoScanResult(PluginScanResult):
             self._format_field('Not After:', certificate.not_valid_after),
             self._format_field('Signature Algorithm:', certificate.signature_hash_algorithm.name),
             self._format_field('Public Key Algorithm:', public_key.__class__.__name__),
-            self._format_field('Key Size:', public_key.key_size)]
+            self._format_field('Key Size:', getattr(public_key, 'key_size', None))]
 
         try:
             # Print the Public key exponent if there's one; EC public keys don't have one for example
