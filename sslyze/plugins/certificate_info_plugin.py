@@ -578,7 +578,7 @@ class CertificateInfoScanResult(PluginScanResult):
 
         try:
             # Print the Public key exponent if there's one; EC public keys don't have one for example
-            text_output.append(self._format_field('Exponent:', '{0} (0x{0:x})'.format(public_key.public_numbers().e)))
+            text_output.append(self._format_field('Exponent:', '{0} (0x{0:x})'.format(getattr(public_key.public_numbers(), 'e', None))))
         except KeyError:
             pass
 
