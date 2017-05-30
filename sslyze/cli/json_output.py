@@ -74,7 +74,7 @@ class JsonOutputGenerator(OutputGenerator):
         if isinstance(obj, Enum):
             # Properly serialize Enums (such as OpenSslVersionEnum)
             result = obj.name
-        elif isinstance(obj, cryptography.hazmat.backends.openssl.x509._Certificate):
+        elif hasattr(cryptography.hazmat.backends, 'openssl') and isinstance(obj, cryptography.hazmat.backends.openssl.x509._Certificate):
             # Properly serialize certificates; only return the PEM string
             result = {'as_pem': obj.public_bytes(Encoding.PEM).decode('ascii'),
                       'hpkp_pin': CertificateUtils.get_hpkp_pin(obj),
